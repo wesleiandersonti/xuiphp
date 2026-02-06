@@ -3,9 +3,13 @@ set -euo pipefail
 
 PROJECT_DIR="/var/www/xuikiller"
 APACHE_SITE="/etc/apache2/sites-available/xuikiller.conf"
-DB_NAME="xuikiller"
 REPO_URL="https://github.com/wesleiandersonti/xuiphp.git"
 REPO_BRANCH="master"
+DB_NAME="xuikiller"
+DB_USER="xuikiller"
+DB_PASS="Xuikiller@2026"
+DB_ROOT_USER="root"
+DB_ROOT_PASS=""
 
 if [[ $EUID -ne 0 ]]; then
   echo "Run as root (sudo)."
@@ -63,17 +67,6 @@ a2ensite xuikiller
 systemctl restart apache2
 
 echo "[5/7] Creating database"
-read -r -p "MariaDB root user [root]: " DB_ROOT_USER
-DB_ROOT_USER=${DB_ROOT_USER:-root}
-read -r -s -p "MariaDB root password (leave empty for none): " DB_ROOT_PASS
-echo ""
-read -r -p "New database name [xuikiller]: " DB_NAME_INPUT
-DB_NAME=${DB_NAME_INPUT:-$DB_NAME}
-read -r -p "New database user [xuikiller]: " DB_USER
-DB_USER=${DB_USER:-xuikiller}
-read -r -s -p "New database password: " DB_PASS
-echo ""
-
 MYSQL_AUTH=""
 if [[ -n "$DB_ROOT_PASS" ]]; then
   MYSQL_AUTH="-p$DB_ROOT_PASS"
