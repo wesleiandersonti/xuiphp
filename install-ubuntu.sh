@@ -4,6 +4,8 @@ set -euo pipefail
 PROJECT_DIR="/var/www/xuikiller"
 APACHE_SITE="/etc/apache2/sites-available/xuikiller.conf"
 DB_NAME="xuikiller"
+REPO_URL="https://github.com/wesleiandersonti/xuiphp.git"
+REPO_BRANCH="master"
 
 if [[ $EUID -ne 0 ]]; then
   echo "Run as root (sudo)."
@@ -14,6 +16,7 @@ echo "[1/7] Installing packages"
 apt-get update -y
 DEBIAN_FRONTEND=noninteractive apt-get install -y \
   apache2 \
+  git \
   mariadb-server \
   php \
   php-cli \
@@ -27,9 +30,15 @@ DEBIAN_FRONTEND=noninteractive apt-get install -y \
 echo "[2/7] Enabling Apache modules"
 a2enmod rewrite headers
 
-echo "[3/7] Deploying project"
-mkdir -p "$PROJECT_DIR"
-rsync -a --delete --exclude ".git" ./ "$PROJECT_DIR/"
+echo "[3/7] Cloning project"
+if [[ -d "$PROJECT_DIR/.git" ]]; then
+  git -C "$PROJECT_DIR" fetch --all --prune
+  git -C "$PROJECT_DIR" checkout "$REPO_BRANCH"
+  git -C "$PROJECT_DIR" pull --ff-only
+else
+  rm -rf "$PROJECT_DIR"
+  git clone --branch "$REPO_BRANCH" "$REPO_URL" "$PROJECT_DIR"
+fi
 chown -R www-data:www-data "$PROJECT_DIR"
 
 echo "[4/7] Configuring Apache site"
