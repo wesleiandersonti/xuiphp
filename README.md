@@ -1,5 +1,11 @@
 # Lock Kids / Xtream Server Panel
 
+[![PHP](https://img.shields.io/badge/PHP-7.2%2B-blue)](https://www.php.net/)
+[![Apache](https://img.shields.io/badge/Apache-2.4%2B-red)](https://httpd.apache.org/)
+[![MariaDB](https://img.shields.io/badge/MariaDB-10.6%2B-orange)](https://mariadb.org/)
+[![Repo Size](https://img.shields.io/github/repo-size/wesleiandersonti/xuiphp)](https://github.com/wesleiandersonti/xuiphp)
+[![Issues](https://img.shields.io/github/issues/wesleiandersonti/xuiphp)](https://github.com/wesleiandersonti/xuiphp/issues)
+
 Painel web para gerenciamento de IPTV com clientes, testes, revendedores e conteudos
 (canais/filmes/series), com APIs no padrao Xtream e geracao de playlists.
 
@@ -116,3 +122,10 @@ URLs baseadas em rewrite:
 - 404 em rotas encurtadas: verifique `mod_rewrite` e AllowOverride.
 - Erro de conexao: valide credenciais em `api/controles/db.php`.
 - API retorna auth=0: usuario/senha invalida ou vencido.
+
+## Screenshots
+Substitua pelos seus prints reais (mesmos nomes abaixo):
+
+![Login](docs/screenshots/login.png)
+![Dashboard](docs/screenshots/dashboard.png)
+![Clientes](docs/screenshots/clientes.png)
