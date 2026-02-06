@@ -1,34 +1,38 @@
 # Lock Kids / Xtream Server Panel
 
-Painel web para gerenciamento de IPTV com suporte a clientes, testes, revendedores,
-conteudos (canais/filmes/series) e integracao com APIs no padrao Xtream.
+Painel web para gerenciamento de IPTV com clientes, testes, revendedores e conteudos
+(canais/filmes/series), com APIs no padrao Xtream e geracao de playlists.
 
-## Visao geral
-- Backend em PHP com PDO/MySQL.
-- Frontend em Bootstrap 5 + jQuery + DataTables.
-- API estilo Xtream em `player_api.php` e geracao de playlists M3U/SSIPTV.
-- Rotas encurtadas e streaming via `.htaccess`.
+## Destaques
+- API Xtream completa em `player_api.php`.
+- Playlists M3U e SS-IPTV prontas para consumo.
+- Redirecionamento de streams com validacao de vencimento.
+- Importacao de M3U com separacao por categorias e series.
 
 ## Requisitos
-- PHP 7.2+ (com extensao `pdo_mysql`).
+- Ubuntu 22.04 LTS (recomendado) ou equivalente.
+- PHP 7.2+ com `pdo_mysql`.
 - MySQL/MariaDB.
-- Apache com `mod_rewrite` habilitado (ou Nginx equivalente com rules).
+- Apache com `mod_rewrite` habilitado.
 
-## Instalacao rapida
-1) Aponte o DocumentRoot do servidor web para esta pasta.
-2) Importe o banco usando `u388078543_lockkids.sql`.
-3) Atualize as credenciais do banco em `api/controles/db.php`.
-4) Garanta que `.htaccess` esteja ativo (AllowOverride All).
-5) Acesse `index.php` para fazer login.
+## Instalacao rapida (Ubuntu limpo)
+Execute o instalador completo (nao interativo):
 
-## Configuracao do banco
-Arquivo: `api/controles/db.php`
+```bash
+curl -fsSL https://raw.githubusercontent.com/wesleiandersonti/xuiphp/master/install-ubuntu.sh -o install-ubuntu.sh
+sudo bash install-ubuntu.sh
+```
 
-Edite os valores para o seu ambiente:
-- `$endereco` (host)
-- `$dbusuario` (usuario)
-- `$dbsenha` (senha)
-- `$banco` (nome do banco)
+O script instala Apache/PHP/MariaDB, clona o repo, importa o SQL e configura o
+`api/controles/db.php` com valores padrao.
+
+## Credenciais padrao do instalador
+O instalador usa estes valores fixos:
+- DB_NAME: `xuikiller`
+- DB_USER: `xuikiller`
+- DB_PASS: `Xuikiller@2026`
+
+Para alterar manualmente, edite `api/controles/db.php`.
 
 ## Estrutura principal
 - Login: `index.php`
